@@ -1,0 +1,55 @@
+import dependencies.Dependencies
+import dependencies.Versions
+
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+}
+
+android {
+    compileSdkVersion Versions.compileSdk
+    buildToolsVersion Versions.buildTools
+
+    defaultConfig {
+        minSdkVersion Versions.minSdkVersion
+        targetSdkVersion Versions.targetSdkVersion
+        versionCode dependencies.Application.versionCode
+        versionName dependencies.Application.versionName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+    implementation project(path: ':model')
+    implementation Dependencies.kotlin_standard_library
+
+    implementation Dependencies.coroutine_core
+
+    implementation Dependencies.hilt
+    kapt Dependencies.hilt_compiler_kapt
+
+    testImplementation Dependencies.elmyr
+    testImplementation Dependencies.mockk
+    testImplementation Dependencies.junit
+    testImplementation Dependencies.hamkrest
+    testImplementation Dependencies.arch_test
+    testImplementation Dependencies.coroutine_test
+}

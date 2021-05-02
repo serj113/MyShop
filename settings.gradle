@@ -1,0 +1,24 @@
+rootProject.name = "MyShop"
+
+include ':app'
+
+include ':data'
+project(':data').projectDir = new File("./data")
+
+include ':domain'
+project(':domain').projectDir = new File("./domain")
+
+include ':model'
+project(':model').projectDir = new File("./model")
+
+include ':base_presentation'
+project(':base_presentation').projectDir = new File("./base/base_presentation")
+
+include ':common_navigation'
+project(':common_navigation').projectDir = new File("./common/common_navigation")
+
+include ':presentation_productlist'
+project(':presentation_productlist').projectDir = new File("./presentation/presentation_productlist")
+
+include ':presentation_cart'
+project(':presentation_cart').projectDir = new File("./presentation/presentation_cart")

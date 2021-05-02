@@ -1,0 +1,67 @@
+import dependencies.Dependencies
+import dependencies.Versions
+
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+}
+
+android {
+    compileSdkVersion Versions.compileSdk
+    buildToolsVersion Versions.buildTools
+
+    defaultConfig {
+        minSdkVersion Versions.minSdkVersion
+        targetSdkVersion Versions.targetSdkVersion
+        versionCode dependencies.Application.versionCode
+        versionName dependencies.Application.versionName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    viewBinding {
+        enabled = true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+    implementation project(path: ':base_presentation')
+    implementation project(path: ':common_navigation')
+    implementation project(path: ':domain')
+    implementation project(path: ':model')
+    implementation Dependencies.kotlin_standard_library
+    implementation Dependencies.android_core_ktx
+    implementation Dependencies.appcompat
+    implementation Dependencies.material
+    implementation Dependencies.legacy_support
+    implementation Dependencies.paging
+    implementation Dependencies.recycle_view
+
+    implementation Dependencies.hilt
+    kapt Dependencies.hilt_compiler_kapt
+    implementation Dependencies.android_hilt_viewmodel
+    kapt Dependencies.android_hilt_compiler_kapt
+    annotationProcessor Dependencies.android_hilt_compiler_kapt
+
+    implementation Dependencies.fragment_ktx
+
+    implementation Dependencies.glide
+    annotationProcessor Dependencies.glide_annotation
+}

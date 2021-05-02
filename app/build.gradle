@@ -1,0 +1,73 @@
+import dependencies.Application
+import dependencies.Dependencies
+import dependencies.Versions
+
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-android-extensions'
+    id 'kotlin-kapt'
+    id "androidx.navigation.safeargs.kotlin"
+    id 'dagger.hilt.android.plugin'
+}
+
+android {
+    compileSdkVersion Versions.compileSdk
+    buildToolsVersion Versions.buildTools
+
+    defaultConfig {
+        multiDexEnabled true
+        applicationId Application.id
+        minSdkVersion Versions.minSdkVersion
+        targetSdkVersion Versions.targetSdkVersion
+        versionCode Application.versionCode
+        versionName Application.versionName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+    implementation project(path: ':base_presentation')
+    implementation project(path: ':common_navigation')
+    implementation project(path: ':data')
+    implementation project(path: ':domain')
+    implementation project(path: ':presentation_productlist')
+    implementation project(path: ':presentation_cart')
+    implementation Dependencies.kotlin_standard_library
+    implementation Dependencies.android_core_ktx
+    implementation Dependencies.appcompat
+    implementation Dependencies.material
+    implementation Dependencies.constraint_layout
+
+    implementation Dependencies.multidex
+
+    implementation Dependencies.hilt
+    kapt Dependencies.hilt_compiler_kapt
+    implementation Dependencies.android_hilt_viewmodel
+    kapt Dependencies.android_hilt_compiler_kapt
+    annotationProcessor Dependencies.android_hilt_compiler_kapt
+
+    implementation Dependencies.navigation_fragment
+    implementation Dependencies.navigation_ui
+
+    implementation Dependencies.retrofit
+
+    implementation Dependencies.room
+    implementation Dependencies.room_ktx
+    kapt Dependencies.room_kapt
+}
